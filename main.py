@@ -1,6 +1,6 @@
 from utils.getBalance import getBalance, getBalanceForNetwork
 from utils.punkswap import Punkswap
-from utils.spaceFi import SpaceFi
+#from utils.spaceFi import SpaceFi
 from utils.owlto import Owlto
 from utils.official_bridge import OfficialBridge
 from utils.networks import Scroll, Arbitrum, Optimism, ZKSync, Base, Ethereum
@@ -56,7 +56,7 @@ clientsNFT = []
 clientsOwlto = []
 clientsOfficialBridge = []
 clientsOrbiterScroll = []
-clientsSpaceFi = []
+# clientsSpaceFi = []
 addresses = []
 proxy = []
 okx_addresses = []
@@ -96,7 +96,7 @@ for i in range(count):
     clientsZkStars.append(ZkStars(clientsScroll[i], maxGas))
     clientsPunkswap.append(Punkswap(clientsScroll[i], maxGas))
     clientsSkydrome.append(Skydrome(clientsScroll[i], maxGas))
-    clientsSpaceFi.append((SpaceFi(clientsScroll[i], maxGas)))
+    # clientsSpaceFi.append((SpaceFi(clientsScroll[i], maxGas)))
     clientsNFT.append(NFT(clientsScroll[i], maxGas))
     clientsOrbiterScroll.append(Orbiter(clientsScroll[i], maxGas))
     clientsOfficialBridge.append(OfficialBridge(clientsEthereum[i], maxGas))
@@ -184,16 +184,16 @@ async def SkydromeEverybodyStableSwap():
         task.append(asyncio.create_task(clientsSkydrome[i].swap_token_to_eth(random.choice(listToken))))
     await asyncio.gather(*task)
 
-async def SpaceFiEverybody():
-    task = []
-    for i in range(count):
-        task.append(asyncio.create_task(clientsSpaceFi[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)), random.choice(listToken))))
-    await asyncio.gather(*task)
-async def SpaceFiEverybodyStableSwap():
-    task = []
-    for i in range(count):
-        task.append(asyncio.create_task(clientsSpaceFi[i].swap_token_to_eth(random.choice(listToken))))
-    await asyncio.gather(*task)
+# async def SpaceFiEverybody():
+    # task = []
+    # for i in range(count):
+    #     task.append(asyncio.create_task(clientsSpaceFi[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)), random.choice(listToken))))
+    # await asyncio.gather(*task)
+# async def SpaceFiEverybodyStableSwap():
+#     task = []
+#     for i in range(count):
+#         task.append(asyncio.create_task(clientsSpaceFi[i].swap_token_to_eth(random.choice(listToken))))
+#     await asyncio.gather(*task)
 async def randomAllStableSell():
     task = []
     for i in range(count):
@@ -202,8 +202,8 @@ async def randomAllStableSell():
             task.append(asyncio.create_task(clientsPunkswap[i].AllStableSell()))
         elif swapalka == 2:
             task.append(asyncio.create_task(clientsSkydrome[i].AllStableSell()))
-        else:
-            task.append(asyncio.create_task(clientsSpaceFi[i].AllStableSell()))
+        # else:
+        #     task.append(asyncio.create_task(clientsSpaceFi[i].AllStableSell()))
     await asyncio.gather(*task)
 async def OnchainPower():
     task = []
@@ -381,7 +381,7 @@ def menu():
                     random.shuffle(number)
                 for i in number:
                     print(f"    >>{i} | {clientsScroll[i].address}")
-                    swapalka = random.randint(1, 3)
+                    swapalka = random.randint(1, 2)
                     if swapalka == 1:
                         if everybody == True:
                             asyncio.run(PunkswapEverybody())
@@ -397,7 +397,7 @@ def menu():
                                 show_progress(timesleep)
                                 asyncio.run(clientsPunkswap[i].swap_token_to_eth(contract_token))
 
-                    if swapalka == 2:
+                    elif swapalka == 2:
                         if everybody == True:
                             asyncio.run(SkydromeEverybody())
                             timesleep = random.randint(delay_min, delay_max)
@@ -413,26 +413,26 @@ def menu():
                                 show_progress(timesleep)
                                 asyncio.run(clientsSkydrome[i].swap_token_to_eth(contract_token))
 
-                    else:
-                        if everybody == True:
-                            asyncio.run(SpaceFiEverybody())
-                            timesleep = random.randint(delay_min, delay_max)
-                            show_progress(timesleep)
-                            asyncio.run(SpaceFiEverybodyStableSwap())
-                        else:
-                            for i in range(count):
-                                contract_token = random.choice(listToken)
-                                asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
-                                    TokenAmount(random.uniform(amount_min, amount_max)),
-                                    contract_token=contract_token))
-                                timesleep = random.randint(delay_min, delay_max)
-                                show_progress(timesleep)
-                                asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+                #     else:
+                #         if everybody == True:
+                #             asyncio.run(SpaceFiEverybody())
+                #             timesleep = random.randint(delay_min, delay_max)
+                #             show_progress(timesleep)
+                #             asyncio.run(SpaceFiEverybodyStableSwap())
+                #         else:
+                #             for i in range(count):
+                #                 contract_token = random.choice(listToken)
+                #                 asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
+                #                     TokenAmount(random.uniform(amount_min, amount_max)),
+                #                     contract_token=contract_token))
+                #                 timesleep = random.randint(delay_min, delay_max)
+                #                 show_progress(timesleep)
+                #                 asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
 
-                    if i + 1 == count and k + 1 < numberCircles: break
-                    timesleep = random.randint(delay_min, delay_max)
-                    show_progress(timesleep)
-                k += 1
+                #     if i + 1 == count and k + 1 < numberCircles: break
+                #     timesleep = random.randint(delay_min, delay_max)
+                #     show_progress(timesleep)
+                # k+=1
 
         case 9:
             while (k < numberCircles):
@@ -480,28 +480,28 @@ def menu():
                         show_progress(timesleep)
                 k+=1
 
-        case 11:
-            while (k < numberCircles):
-                if everybody == True:
-                    asyncio.run(SpaceFiEverybody())
-                    timesleep = random.randint(delay_min, delay_max)
-                    show_progress(timesleep)
-                    asyncio.run(SpaceFiEverybodyStableSwap())
-                else:
-                    number = list(range(count))
-                    if shuffle == True:
-                            random.shuffle(number)
-                    for i in number:
-                        print(f"    >>{i} | {clientsScroll[i].address}")
-                        contract_token = random.choice(listToken)
-                        asyncio.run(clientsSpaceFi[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)),
-                                                                         contract_token=contract_token))
-                        timesleep = random.randint(delay_min, delay_max)
-                        asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
-                        if i + 1 == count and k + 1 == numberCircles: break
-                        timesleep = random.randint(delay_min, delay_max)
-                        show_progress(timesleep)
-                k+=1
+        # case 11:
+        #     while (k < numberCircles):
+        #         if everybody == True:
+        #             asyncio.run(SpaceFiEverybody())
+        #             timesleep = random.randint(delay_min, delay_max)
+        #             show_progress(timesleep)
+        #             asyncio.run(SpaceFiEverybodyStableSwap())
+        #         else:
+        #             number = list(range(count))
+        #             if shuffle == True:
+        #                     random.shuffle(number)
+        #             for i in number:
+        #                 print(f"    >>{i} | {clientsScroll[i].address}")
+        #                 contract_token = random.choice(listToken)
+        #                 asyncio.run(clientsSpaceFi[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)),
+        #                                                                  contract_token=contract_token))
+        #                 timesleep = random.randint(delay_min, delay_max)
+        #                 asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+        #                 if i + 1 == count and k + 1 == numberCircles: break
+        #                 timesleep = random.randint(delay_min, delay_max)
+        #                 show_progress(timesleep)
+        #         k+=1
 
         case 12:
             while (k < numberCircles):
@@ -535,21 +535,21 @@ def menu():
                         show_progress(timesleep)
                 k+=1
 
-        case 14:
-            while (k < numberCircles):
-                if everybody == True:
-                    asyncio.run(SpaceFiEverybodyStableSwap())
-                else:
-                    number = list(range(count))
-                    if shuffle == True:
-                        random.shuffle(number)
-                    for i in number:
-                        print(f"    >>{i} | {clientsScroll[i].address}")
-                        asyncio.run(clientsSpaceFi[i].AllStableSell())
-                        if i + 1 == count and k + 1 == numberCircles: break
-                        timesleep = random.randint(delay_min, delay_max)
-                        show_progress(timesleep)
-                k+=1
+        # case 14:
+        #     while (k < numberCircles):
+        #         if everybody == True:
+        #             asyncio.run(SpaceFiEverybodyStableSwap())
+        #         else:
+        #             number = list(range(count))
+        #             if shuffle == True:
+        #                 random.shuffle(number)
+        #             for i in number:
+        #                 print(f"    >>{i} | {clientsScroll[i].address}")
+        #                 asyncio.run(clientsSpaceFi[i].AllStableSell())
+        #                 if i + 1 == count and k + 1 == numberCircles: break
+        #                 timesleep = random.randint(delay_min, delay_max)
+        #                 show_progress(timesleep)
+        #         k+=1
 
         case 15:
             while (k < numberCircles):
@@ -561,13 +561,13 @@ def menu():
                         random.shuffle(number)
                     for i in number:
                         print(f"    >>{i} | {clientsScroll[i].address}")
-                        swapalka = random.randint(1, 3)
+                        swapalka = random.randint(1, 2)
                         if swapalka == 1:
                             asyncio.run(clientsPunkswap[i].AllStableSell())
                         elif swapalka == 2:
                             asyncio.run(clientsSkydrome[i].AllStableSell())
-                        else:
-                            asyncio.run(clientsSpaceFi[i].AllStableSell())
+                        # else:
+                        #     asyncio.run(clientsSpaceFi[i].AllStableSell())
                         if i + 1 == count and k + 1 == numberCircles: break
                         timesleep = random.randint(delay_min, delay_max)
                         show_progress(timesleep)
@@ -656,7 +656,7 @@ def menu():
                     time.sleep(60)
                     choice = random.randint(1, 2)
                     if choice == 1:
-                        swapalka = random.randint(1, 3)
+                        swapalka = random.randint(1, 2)
                         if swapalka == 1:
                             contract_token = random.choice(listToken)
                             asyncio.run(clientsPunkswap[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)),contract_token=contract_token))
@@ -672,14 +672,14 @@ def menu():
                             timesleep = random.randint(delay_min, delay_max)
                             show_progress(timesleep)
                             asyncio.run(clientsSkydrome[i].swap_token_to_eth(contract_token))
-                        else:
-                            contract_token = random.choice(listToken)
-                            asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
-                                TokenAmount(random.uniform(amount_min, amount_max)),
-                                contract_token=contract_token))
-                            timesleep = random.randint(delay_min, delay_max)
-                            show_progress(timesleep)
-                            asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+                        # else:
+                        #     contract_token = random.choice(listToken)
+                        #     asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
+                        #         TokenAmount(random.uniform(amount_min, amount_max)),
+                        #         contract_token=contract_token))
+                        #     timesleep = random.randint(delay_min, delay_max)
+                        #     show_progress(timesleep)
+                        #     asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
                     else:
                         collection = random.randint(1,3)
                         if collection == 1:
@@ -754,7 +754,7 @@ def menu():
                     print(f"    >>{i} | {clientsScroll[i].address}")
                     choice = random.randint(1, 2)
                     if choice == 1:
-                        swapalka = random.randint(1, 3)
+                        swapalka = random.randint(1, 2)
                         if swapalka == 1:
                             contract_token = random.choice(listToken)
                             asyncio.run(clientsPunkswap[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)),
@@ -771,14 +771,14 @@ def menu():
                             timesleep = random.randint(delay_min, delay_max)
                             show_progress(timesleep)
                             asyncio.run(clientsSkydrome[i].swap_token_to_eth(contract_token))
-                        else:
-                            contract_token = random.choice(listToken)
-                            asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
-                                TokenAmount(random.uniform(amount_min, amount_max)),
-                                contract_token=contract_token))
-                            timesleep = random.randint(delay_min, delay_max)
-                            show_progress(timesleep)
-                            asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+                        # else:
+                        #     contract_token = random.choice(listToken)
+                        #     asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
+                        #         TokenAmount(random.uniform(amount_min, amount_max)),
+                        #         contract_token=contract_token))
+                        #     timesleep = random.randint(delay_min, delay_max)
+                        #     show_progress(timesleep)
+                        #     asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
                     else:
                         collection = random.randint(1, 3)
                         if collection == 1:
@@ -800,7 +800,7 @@ def menu():
                     print(f"    >>{i} | {clientsScroll[i].address}")
                     choice = random.randint(1, 2)
                     if choice == 1:
-                        swapalka = random.randint(1, 3)
+                        swapalka = random.randint(1, 2)
                         if swapalka == 1:
                             contract_token = random.choice(listToken)
                             asyncio.run(clientsPunkswap[i].swap_eth_to_token(TokenAmount(random.uniform(amount_min, amount_max)),
@@ -817,14 +817,14 @@ def menu():
                             timesleep = random.randint(delay_min, delay_max)
                             show_progress(timesleep)
                             asyncio.run(clientsSkydrome[i].swap_token_to_eth(contract_token))
-                        else:
-                            contract_token = random.choice(listToken)
-                            asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
-                                TokenAmount(random.uniform(amount_min, amount_max)),
-                                contract_token=contract_token))
-                            timesleep = random.randint(delay_min, delay_max)
-                            show_progress(timesleep)
-                            asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+                        # else:
+                        #     contract_token = random.choice(listToken)
+                        #     asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
+                        #         TokenAmount(random.uniform(amount_min, amount_max)),
+                        #         contract_token=contract_token))
+                        #     timesleep = random.randint(delay_min, delay_max)
+                        #     show_progress(timesleep)
+                        #     asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
                     else:
                         collection = random.randint(1, 3)
                         if collection == 1:
@@ -873,7 +873,7 @@ def menu():
                 while (j < circ):
                     choice = random.randint(1, 2)
                     if choice == 1:
-                        swapalka = random.randint(1, 3)
+                        swapalka = random.randint(1, 2)
                         if swapalka == 1:
                             contract_token = random.choice(listToken)
                             asyncio.run(clientsPunkswap[i].swap_eth_to_token(
@@ -891,14 +891,14 @@ def menu():
                             timesleep = random.randint(delay_min, delay_max)
                             show_progress(timesleep)
                             asyncio.run(clientsSkydrome[i].swap_token_to_eth(contract_token))
-                        else:
-                            contract_token = random.choice(listToken)
-                            asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
-                                TokenAmount(random.uniform(amount_min, amount_max)),
-                                contract_token=contract_token))
-                            timesleep = random.randint(delay_min, delay_max)
-                            show_progress(timesleep)
-                            asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
+                        # else:
+                        #     contract_token = random.choice(listToken)
+                        #     asyncio.run(clientsSpaceFi[i].swap_eth_to_token(
+                        #         TokenAmount(random.uniform(amount_min, amount_max)),
+                        #         contract_token=contract_token))
+                        #     timesleep = random.randint(delay_min, delay_max)
+                        #     show_progress(timesleep)
+                        #     asyncio.run(clientsSpaceFi[i].swap_token_to_eth(contract_token))
                     else:
                         collection = random.randint(1, 3)
                         if collection == 1:
