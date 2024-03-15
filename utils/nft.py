@@ -83,7 +83,6 @@ class NFT:
             amount = TokenAmount(0.00024)
             print(f'{self.client.address} | mint Zerius...')
             logger.info(f'{self.client.address} | mint Zerius...')
-            chek_gas_eth(self.maxGas)
             tx = self.client.send_transaction(
                 to=contract_zerius,
                 data=contract.encodeABI('mint'),
@@ -145,7 +144,6 @@ class NFT:
             amount = TokenAmount(0.00023)
             print(f'{self.client.address} | mint Onchain Power for Scroll...')
             logger.info(f'{self.client.address} | mint Onchain Power for Scroll...')
-            chek_gas_eth(self.maxGas)
             tx = self.client.send_transaction(
                 to=contract_onchain_power,
                 data=contract.encodeABI('mint', args= (1)),
