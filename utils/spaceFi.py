@@ -15,7 +15,7 @@ class SpaceFi:
         self.client = client
         self.maxGas = maxGas
 
-    async def swap_eth_to_token(self, amount: TokenAmount, contract_token: str, retry = 0, slippage = 1):
+    async def swap_eth_to_token(self, amount: TokenAmount, contract_token: str, retry = 0, slippage = 1.5):
         print(f"{self.client.address} | SpaceFi Swap | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
         logger.info(f"{self.client.address} | SpaceFi Swap | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
         try:
@@ -91,7 +91,7 @@ class SpaceFi:
                 return 0
             await self.swap_eth_to_token(amount, contract_token, retry)
 
-    async def swap_token_to_eth(self, contract_token: str, amount: Optional[TokenAmount] = None, retry=0, slippage=1):
+    async def swap_token_to_eth(self, contract_token: str, amount: Optional[TokenAmount] = None, retry=0, slippage=1.5):
         balance_value = self.client.balance_of(contract_address=contract_token).Wei
         if amount == None:
             value = TokenAmount(
