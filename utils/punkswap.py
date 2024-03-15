@@ -14,8 +14,8 @@ class Punkswap:
         self.maxGas = maxGas
 
     async def swap_eth_to_token(self, amount: TokenAmount, contract_token: str, retry = 0, slippage = 2):
-        print(f"{self.client.address} | SpaceFi Swap | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
-        logger.info(f"{self.client.address} | SpaceFi Swap | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
+        print(f"{self.client.address} | PunkSwap | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
+        logger.info(f"{self.client.address} | PunkSwap  | {format(float(amount.Ether), '.5f')} ETH --> {self.client.name(contract_token)}...")
         try:
             contract = self.client.w3.eth.contract(address=contract_punkswap, abi=Punkswap.abi)
             eth_price = self.client.get_eth_price()
