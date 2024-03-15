@@ -83,7 +83,7 @@ class Skydrome:
                 return 0
             await self.swap_eth_to_token(amount, contract_token, retry)
 
-    async def swap_token_to_eth(self, contract_token: str, retry = 0, amount: Optional[TokenAmount] = None, slippage = 1):
+    async def swap_token_to_eth(self, contract_token: str, retry = 0, amount: Optional[TokenAmount] = None, slippage = 1.5):
         balance_value = self.client.balance_of(contract_address=str(contract_token)).Wei
         if amount == None:
             value = TokenAmount(
