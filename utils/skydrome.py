@@ -14,7 +14,7 @@ class Skydrome:
         self.client = client
         self.maxGas = maxGas
 
-    async def swap_eth_to_token(self, amount: TokenAmount, contract_token: str, retry = 0, slippage = 1):
+    async def swap_eth_to_token(self, amount: TokenAmount, contract_token: str, retry = 0, slippage = 1.5):
         print(f"SWAP | Skydrome | {format(float(amount.Ether), '.6f')} ETH --> {self.client.name(contract_token)}...")
         logger.info(f"SWAP | Skydrome | {format(float(amount.Ether), '.6f')} ETH --> {self.client.name(contract_token)}...")
         try:
@@ -83,7 +83,7 @@ class Skydrome:
                 return 0
             await self.swap_eth_to_token(amount, contract_token, retry)
 
-    async def swap_token_to_eth(self, contract_token: str, retry = 0, amount: Optional[TokenAmount] = None, slippage = 1.5):
+    async def swap_token_to_eth(self, contract_token: str, retry = 0, amount: Optional[TokenAmount] = None, slippage = 1.6):
         balance_value = self.client.balance_of(contract_address=str(contract_token)).Wei
         if amount == None:
             value = TokenAmount(
