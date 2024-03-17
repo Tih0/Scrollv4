@@ -907,6 +907,9 @@ def menu():
                         else:
                             asyncio.run(clientsNFT[i].mintNFT(random.choice(contractNFTs)))
                     j+=1
+                    if j < circ:
+                        timesleep = random.randint(300, 900)
+                        show_progress(timesleep)
 
                 if i + 1 == count and k + 1 == numberCircles: break
                 timesleep = random.randint(300, 900)
